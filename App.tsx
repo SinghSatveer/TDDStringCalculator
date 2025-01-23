@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   input: {
-    borderColor: "black",
+    borderColor: "#D3D3D3",
     borderWidth: 1,
     // height: 48,
     width: "96%",
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     color: "red",
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#0096FF",
     height: 38,
     width: "96%",
     marginTop: 22,
