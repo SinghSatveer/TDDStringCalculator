@@ -5,9 +5,10 @@
  * @format
  */
 
-import React from "react";
+import React, { useState } from "react";
 import type { PropsWithChildren } from "react";
 import {
+  Alert,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -27,15 +28,31 @@ import {
   ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
 
+import StringCalculator from "./src/StringCalculator";
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function App(): React.JSX.Element {
+function App() {
   const isDarkMode = useColorScheme() === "dark";
+
+  const [inputValue, setInputValue] = useState("");
+  const [result, setResult] = useState(0);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const calculateButtonClick = () => {
+    try {
+      const calculator = new StringCalculator(); // Create an instance of the calculator class
+      const resultValue = calculator.add(inputValue); // Call the add method on input value
+      setResult(resultValue);
+    } catch (error) {
+      console.log(error.message);
+      setResult(0);
+    }
   };
 
   return (
@@ -47,15 +64,24 @@ function App(): React.JSX.Element {
 
       <View style={styles.container}>
         <Text style={styles.title}>String Calculator</Text>
-       
-        <TextInput style={styles.input}></TextInput>
 
-        <TouchableOpacity style={styles.button}>
+        <TextInput
+          style={styles.input}
+          value={inputValue}
+          onChangeText={setInputValue}
+          placeholder="Enter numbers"
+          multiline={true}
+        ></TextInput>
+
+        <TouchableOpacity
+          onPress={() => calculateButtonClick()}
+          style={styles.button}
+        >
           <Text style={styles.buttonTitle}> CALCULATE </Text>
         </TouchableOpacity>
 
         <Text style={styles.sum}>
-          {"Sum: "} {"0"}
+          {"Sum: "} {result}
         </Text>
       </View>
     </SafeAreaView>
@@ -76,9 +102,14 @@ const styles = StyleSheet.create({
   input: {
     borderColor: "black",
     borderWidth: 1,
-    height: 48,
+    // height: 48,
     width: "96%",
     marginTop: 22,
+    padding: 12,
+  },
+  error: {
+    marginTop: 20,
+    color: "red",
   },
   button: {
     backgroundColor: "blue",
