@@ -5,17 +5,19 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React from "react";
+import type { PropsWithChildren } from "react";
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
+  TouchableOpacity,
   useColorScheme,
   View,
-} from 'react-native';
+} from "react-native";
 
 import {
   Colors,
@@ -23,15 +25,14 @@ import {
   Header,
   LearnMoreLinks,
   ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+} from "react-native/Libraries/NewAppScreen";
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -40,38 +41,61 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-        </View>
-      </ScrollView>
+
+      <View style={styles.container}>
+        <Text style={styles.title}>String Calculator</Text>
+       
+        <TextInput style={styles.input}></TextInput>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonTitle}> CALCULATE </Text>
+        </TouchableOpacity>
+
+        <Text style={styles.sum}>
+          {"Sum: "} {"0"}
+        </Text>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    marginHorizontal: 22,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  title: {
+    fontWeight: "700",
+    fontSize: 22,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  input: {
+    borderColor: "black",
+    borderWidth: 1,
+    height: 48,
+    width: "96%",
+    marginTop: 22,
   },
-  highlight: {
-    fontWeight: '700',
+  button: {
+    backgroundColor: "blue",
+    height: 38,
+    width: "96%",
+    marginTop: 22,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonTitle: {
+    fontSize: 16,
+    color: "white",
+  },
+  sum: {
+    fontSize: 16,
+    fontWeight: "700",
+    marginTop: 22,
   },
 });
 
